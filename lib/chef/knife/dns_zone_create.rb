@@ -22,7 +22,7 @@ class Chef
 
       include Knife::DnsBase
 
-      banner "knife dns zone create (options)"
+      banner "knife dns zone create -D DOMAIN -M EMAIL (options)"
 
       option :domain,
         :short => "-D DOMAIN",
