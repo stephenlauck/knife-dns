@@ -41,7 +41,7 @@ class Chef
             :proc => Proc.new { |key| Chef::Config[:knife][:dns_provider] = key }
 
 
-          option :dns_email,
+          option :dns_username,
             :short => "-A USERNAME",
             :long => "--dns-username USERNAME",
             :description => "Your DNS Username",
@@ -57,11 +57,14 @@ class Chef
 
       def connection
         Chef::Log.debug("dns_username #{Chef::Config[:knife][:dns_username]}")
+
+        provider = Chef::Config[:knife][:dns_provider]
+
         @connection ||= begin
           connection = Fog::DNS.new(
-            :provider => Chef::Config[:knife][:dns_provider],
-            :dnsimple_email => Chef::Config[:knife][:dns_email],
-            :dnsimple_password => Chef::Config[:knife][:dns_password]
+            :provider => provider,
+            "#{provider.downcase}_email"    => Chef::Config[:knife][:dns_username],
+            "#{provider.downcase}_password" => Chef::Config[:knife][:dns_password]
           )
         end
       end
