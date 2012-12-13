@@ -17,41 +17,41 @@
 require 'chef/knife/dns_base'
 
 class Chef
-	class Knife
-		class DnsZoneCreate < Knife
+  class Knife
+    class DnsZoneCreate < Knife
 
-			include Knife::DnsBase
+      include Knife::DnsBase
 
-			banner "knife dns zone create (options)"
+      banner "knife dns zone create (options)"
 
-			option :domain,
-				:short => "-D DOMAIN",
-				:long => "--domain DOMAIN",
-				:description => "Domain name for zone"
+      option :domain,
+        :short => "-D DOMAIN",
+        :long => "--domain DOMAIN",
+        :description => "Domain name for zone"
 
-				
-			option :email,
-				:short => "-M EMAIL",
-				:long => "--email EMAIL",
-				:description => "Domain email for zone"
+        
+      option :email,
+        :short => "-M EMAIL",
+        :long => "--email EMAIL",
+        :description => "Domain email for zone"
 
-			def run
-				
-				unless config[:domain]
+      def run
+        
+        unless config[:domain]
           ui.error("You have not provided a domain name")
           show_usage
           exit 1
         end
 
-				zone = self.connection.zones.create({
-					:domain => config[:domain],
-					:email => config[:email]
-				})
+        zone = self.connection.zones.create({
+          :domain => config[:domain],
+          :email => config[:email]
+        })
 
-				puts ui.color("Created zone:", :cyan)
+        puts ui.color("Created zone:", :cyan)
         msg_pair("ID", zone.id.to_s)
         msg_pair("Domain", zone.domain)
-			end
-		end
-	end
+      end
+    end
+  end
 end

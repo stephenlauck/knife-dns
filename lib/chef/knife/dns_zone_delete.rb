@@ -19,19 +19,19 @@
 require 'chef/knife/dns_base'
 
 class Chef
-	class Knife
-		class DnsZoneDelete < Knife
+  class Knife
+    class DnsZoneDelete < Knife
 
-			include Knife::DnsBase
+      include Knife::DnsBase
 
-			banner "knife dns zone delete ZONE [ZONE] (options)"
+      banner "knife dns zone delete ZONE [ZONE] (options)"
 
-			def run
-			
-				@name_args.each do |instance_id|
-					begin
-						zone_id = self.connection.zones.select{|z| z.domain =~ /#{instance_id}/}.first.id
-						puts ui.color("Found zone id #{zone_id}", :cyan)
+      def run
+      
+        @name_args.each do |instance_id|
+          begin
+            zone_id = self.connection.zones.select{|z| z.domain =~ /#{instance_id}/}.first.id
+            puts ui.color("Found zone id #{zone_id}", :cyan)
 
             zone = self.connection.zones.get(zone_id)
             puts ui.color("Found zone #{zone.domain}", :cyan)
@@ -51,7 +51,7 @@ class Chef
             show_usage
           end
         end
-			end
-		end
-	end
+      end
+    end
+  end
 end

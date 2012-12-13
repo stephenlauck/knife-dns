@@ -42,25 +42,3 @@ class Chef
 		end
 	end
 end
-
-# {"domain"=>
-#   {"auto_renew"=>nil,
-#    "created_at"=>"2012-12-12T18:58:18Z",
-#    "expires_at"=>nil,
-#    "id"=>50874,
-#    "language"=>nil,
-#    "lockable"=>true,
-#    "name"=>"playland.modcloth.com",
-#    "name_server_status"=>"unknown",
-#    "parsed_expiration_date"=>nil,
-#    "registrant_id"=>nil,
-#    "state"=>"hosted",
-#    "token"=>"bWigD1go7DYsWYQoScBSUFGx_Pv60_ciKA",
-#    "unicode_name"=>"playland.modcloth.com",
-#    "updated_at"=>"2012-12-12T18:58:18Z",
-#    "user_id"=>12678,
-#    "record_count"=>0,
-#    "service_count"=>0,
-#    "private_whois?"=>false,
-#    "expires_on"=>nil}}
-# => {"domain"=>{"auto_renew"=>nil, "created_at"=>"2012-12-12T18:58:18Z", "expires_at"=>nil, "id"=>50874, "language"=>nil, "lockable"=>true, "name"=>"playland.modcloth.com", "name_server_status"=>"unknown", "parsed_expiration_date"=>nil, "registrant_id"=>nil, "state"=>"hosted", "token"=>"bWigD1go7DYsWYQoScBSUFGx_Pv60_ciKA", "unicode_name"=>"playland.modcloth.com", "updated_at"=>"2012-12-12T18:58:18Z", "user_id"=>12678, "record_count"=>0, "service_count"=>0, "private_whois?"=>false, "expires_on"=>nil}}

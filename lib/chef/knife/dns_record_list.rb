@@ -17,37 +17,37 @@
 require 'chef/knife/dns_base'
 
 class Chef
-	class Knife
-		class DnsRecordList < Knife
+  class Knife
+    class DnsRecordList < Knife
 
-			include Knife::DnsBase
+      include Knife::DnsBase
 
-			banner "knife dns record list (options)"
+      banner "knife dns record list (options)"
 
-			option :zone,
-				:short => "-Z ZONE",
-				:long => "--zone ZONE",
-				:description => "Zone for the record"
+      option :zone,
+          :short => "-Z ZONE",
+          :long => "--zone ZONE",
+          :description => "Zone for the record"
 
-			def run
-				unless config[:zone]
+      def run
+        unless config[:zone]
           ui.error("You have not provided a zone")
           show_usage
           exit 1
         end
 
-				records = [
-				  ui.color('ID', :bold),
-				  ui.color('Name', :bold),
-				]
+        records = [
+          ui.color('ID', :bold),
+          ui.color('Name', :bold),
+        ]
 
-				self.connection.zones.get(config[:zone]).records.sort_by(&:name).each do |i|
-				  records << i.id.to_s
-				  records << i.name
-				end
+        self.connection.zones.get(config[:zone]).records.sort_by(&:name).each do |i|
+          records << i.id.to_s
+          records << i.name
+        end
 
-				puts ui.list(records, :uneven_columns_across, 2)
-			end
-		end
-	end
+        puts ui.list(records, :uneven_columns_across, 2)
+      end
+    end
+  end
 end
