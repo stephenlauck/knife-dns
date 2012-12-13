@@ -30,10 +30,7 @@ class Chef
       
         @name_args.each do |instance_id|
           begin
-            zone_id = self.connection.zones.select{|z| z.domain =~ /#{instance_id}/}.first.id
-            puts ui.color("Found zone id #{zone_id}", :cyan)
-
-            zone = self.connection.zones.get(zone_id)
+            zone = self.connection.zones.get(instance_id)
             puts ui.color("Found zone #{zone.domain}", :cyan)
 
             msg_pair("ID", zone.id)
