@@ -1,7 +1,7 @@
 Knife DNS
 =========
 
-Knife plugin that can be used to CRUD dns records and zones using the FOG gem's DNS support.
+Knife plugin that can be used to CRUD dns records and zones using the FOG::DNS support.
 
 ## Installation
 
