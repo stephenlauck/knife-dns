@@ -22,7 +22,7 @@ class Chef
 
       include Knife::DnsBase
 
-      banner "knife dns record create (options)"
+      banner "knife dns record create -N NAME -T TYPE -i VALUE -Z ZONE (options)"
 
       option :zone,
         :short => "-Z ZONE",
