@@ -22,9 +22,7 @@ Or install it yourself as:
 In order to communicate with a cloud DNS provider or a local dns server you must tell knife your provider, username, and api key or password in your knife.rb file:
 
 	knife[:dns_provider] = "Your DNS Provider ( via FOG gem )"
-
 	knife[:dns_username] = "Your DNS Provider email or username"
-	
 	knife[:dns_password] = "Your DNS Provider password"
 
 ## Usage
