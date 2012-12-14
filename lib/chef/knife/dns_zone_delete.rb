@@ -27,6 +27,11 @@ class Chef
       banner "knife dns zone delete ZONE [ZONE] (options)"
 
       def run
+
+        unless name_args.size > 0
+          show_usage
+          exit 1
+        end
       
         @name_args.each do |instance_id|
           begin
