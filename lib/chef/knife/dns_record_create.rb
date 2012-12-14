@@ -52,9 +52,18 @@ class Chef
           exit 1
         end
 
-        # zone_id = self.connection.zones.select{|z| z.domain =~ /#{config[:zone]}/}.first.id
-        zone = self.connection.zones.get(config[:zone])
-        puts ui.color("Adding record to #{zone.domain} #{zone.id}", :cyan)
+        if self.connection == 'local'
+          zone = config[:zone]
+          record = config[:name]
+          record_type = config[:type]
+          record_value = config[:value]
+
+          nsupdate(zone, record, 86400, record_type, record_value)
+        else
+          # zone_id = self.connection.zones.select{|z| z.domain =~ /#{config[:zone]}/}.first.id
+          zone = self.connection.zones.get(config[:zone])
+          puts ui.color("Adding record to #{zone.domain} #{zone.id}", :cyan)
+        end
 
         record = zone.records.create({
           :name => config[:name],

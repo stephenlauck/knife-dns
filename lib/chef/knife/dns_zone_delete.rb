@@ -1,5 +1,3 @@
-
-
 # Author:: Stephen Lauck (<stephen.lauck@gmail.com>)
 # Copyright:: Copyright (c) 2011-2012
 # License:: Apache License, Version 2.0

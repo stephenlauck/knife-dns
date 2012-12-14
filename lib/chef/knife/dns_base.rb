@@ -60,12 +60,17 @@ class Chef
 
         provider = Chef::Config[:knife][:dns_provider]
 
-        @connection ||= begin
-          connection = Fog::DNS.new(
-            :provider => provider,
-            "#{provider.downcase}_email"    => Chef::Config[:knife][:dns_username],
-            "#{provider.downcase}_password" => Chef::Config[:knife][:dns_password]
-          )
+        case provider
+        when "local"
+          @provider = provider
+        else
+          @connection ||= begin
+            connection = Fog::DNS.new(
+              :provider => provider,
+              "#{provider.downcase}_email"    => Chef::Config[:knife][:dns_username],
+              "#{provider.downcase}_password" => Chef::Config[:knife][:dns_password]
+            )
+          end
         end
       end
 
@@ -73,6 +78,49 @@ class Chef
         if value && !value.to_s.empty?
           puts "#{ui.color(label, color)}: #{value}"
         end
+      end
+
+      def nsupdate(zone, record, ttl=86400, record_type, record_value)
+        STDOUT.sync = true
+
+        keyfile = Chef::Config[:knife][:dns_keyfile]
+        server = Chef::Config[:knife][:dns_server]
+
+        puts ui.color("keyfile: #{keyfile} server: #{server}", :cyan)
+
+        IO.popen("/usr/bin/nsupdate -v -k #{keyfile}") do |f|
+          # f << <<-EOD
+          #   server #{server}
+          #   zone #{zone}
+          #   update delete #{record} #{record_type}
+          #   update add #{record} #{ttl} #{record_type} #{record_value}
+          #   show
+          #   send
+          #   quit
+          # EOD
+
+          # f.close_write
+          # puts f.read
+
+          f.puts "quit"
+          f.close_write
+          puts ui.color("#{f.gets}", :cyan)
+
+        end
+        # IO.popen("nsupdate -y #{DNS_INFO["key"]}:#{DNS_INFO["secret"]} -v", 'r+') do |f|
+        #   f << <<-EOF
+        #     server #{DNS_INFO["server"]}
+        #     zone #{DNS_INFO["key"]}
+        #     update delete #{HOSTNAME} A
+        #     update add #{HOSTNAME} 60 A #{ip}
+        #     show
+        #     send
+        #   EOF
+
+        #   f.close_write
+        #   puts f.read
+        # end
+
       end
     end
   end
