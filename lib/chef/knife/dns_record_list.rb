@@ -22,31 +22,44 @@ class Chef
 
       include Knife::DnsBase
 
-      banner "knife dns record list (options)"
-
-      option :zone,
-          :short => "-Z ZONE",
-          :long => "--zone ZONE",
-          :description => "Zone for the record"
+      banner "knife dns record list ZONE (options)"
 
       def run
-        unless config[:zone]
-          ui.error("You have not provided a zone")
-          show_usage
-          exit 1
-        end
 
         records = [
+          ui.color('Zone', :bold),
           ui.color('ID', :bold),
-          ui.color('Name', :bold),
+          ui.color('Record', :bold),
+          ui.color('TTL', :bold),
+          ui.color('Type', :bold),
+          ui.color('Value', :bold),
         ]
 
-        self.connection.zones.get(config[:zone]).records.sort_by(&:name).each do |i|
-          records << i.id.to_s
-          records << i.name
-        end
+        if name_args.size === 1
+          
+          zone = name_args.first
 
-        puts ui.list(records, :uneven_columns_across, 2)
+          self.connection.zones.get(zone).records.sort_by(&:name).each do |i|
+            records << zone
+            records << i.id.to_s
+            records << "#{i.name}.#{zone}"
+            records << i.ttl.to_s
+            records << i.type
+            records << i.value
+          end
+        else
+          show_usage
+          exit 1
+
+          # show all records in all zones
+          #  self.connection.zones.get(config[:zone]).records.sort_by(&:name).each do |i|
+          #   records << config[:zone]
+          #   records << i.id.to_s
+          #   records << i.name
+          # end
+
+        end
+        puts ui.list(records, :uneven_columns_across, 6)
       end
     end
   end
