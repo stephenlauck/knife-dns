@@ -61,11 +61,7 @@ class Chef
         provider = Chef::Config[:knife][:dns_provider]
 
         @connection ||= begin
-          connection = Fog::DNS.new(
-            :provider => provider,
-            "#{provider.downcase}_email"    => Chef::Config[:knife][:dns_username],
-            "#{provider.downcase}_password" => Chef::Config[:knife][:dns_password]
-          )
+          connection = Fog::DNS.new(Chef::Config[:knife][:dns])
         end
       end
 
